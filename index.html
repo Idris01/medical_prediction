@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Medical Prediction</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <script src="./js/main.js"></script>
+    
+    <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/utility.js"></script>
   </head>
   <body>
     <h1 class="text-light bg-dark text-center p-2">Medical Prediction</h1>
@@ -16,26 +18,30 @@
                 <h5 class="text-center text-warning p-2">Prediction Result</h5>
             </div>
             <div class="col-sm-12 col-lg-6">
-                <div class="col-12">
-                    <div class="col-3 form-check">
-                        <input class="form-check-input" type="radio" name="healthStatus" value="stroke" id="stroke">
-                        <label class="form-check-label" for="stroke">
-                          Stroke
-                        </label>
-                      </div>
-                      <div class="col-3 form-check">
-                        <input class="form-check-input" type="radio" name="healthStatus" value="hypertension" id="hypertension" checked>
+                <div class="row">
+                    <div class="col-12 text-center text-info">Select Choice of Prediction</div>
+                    <div class="row p-3 border">
+                        <div class="col-3 form-check">
+                            <input class="form-check-input" type="radio" name="healthStatus" value="stroke" id="stroke">
+                            <label class="form-check-label" for="stroke">
+                              Stroke
+                            </label>
+                        </div>
+                        <div class="col-3 form-check">
+                        <input class="form-check-input" type="radio" name="healthStatus" value="hypertension" id="hypertension">
                         <label class="form-check-label" for="hypertension">
-                          Hypertension
+                            Hypertension
                         </label>
-                      </div>
-                      <div class="col-3 form-check">
-                        <input class="form-check-input" type="radio" name="healthStatus" value="bim" id="bmi" checked>
+                        </div>
+                        <div class="col-3 form-check">
+                        <input class="form-check-input" type="radio" name="healthStatus" value="bim" id="bmi">
                         <label class="form-check-label" for="bmi">Bmi</label>
-                      </div>
+                        </div>
+                    </div>
+                    
                 </div>
-                <div class="col-12 mt-2" id="userdata">
-
+                <div class="col-12 mt-2">
+                    <form action="" id="userdata"></form>
                 </div>
           </div>
         </div>
