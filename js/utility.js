@@ -26,6 +26,12 @@ const hyperFields = `
 const bmiFields = `
 
                     `
+export const spinner = ` <div class="spinner-border text-primary" role="status">
+                        </div>
+                        `
+export const printResult = function(name,value){
+    let info = `<h3>${name.toUpper()} Value: ${value}</h3>`
+}
 export function makeForm(otherField='stroke'){
     let addField = otherField=='stroke'? strokeFields:otherField=='stroke'? hyperFields:bmiFields
     let commonFields = `</hr>
