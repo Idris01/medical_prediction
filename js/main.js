@@ -1,13 +1,7 @@
 import {makeForm,spinner,printResult} from "/js/utility.js";
 
 document.addEventListener('DOMContentLoaded', ()=>{
-   document.getElementById("userdata").onsubmit = async function(e){
-	   e.preventDefault();
-	   let userdata = new FormData(this);
-	   await alert(userdata['illness']);
-	   //makePrediction(userdata);
-   }
- 
+    
     
     function plotBar(xValues,yValues,divItem){
         let data = [
@@ -37,7 +31,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     async function makePrediction(userdata,info=spinner){
         document.getElementById('result').innerHTML=info;
 	document.getElementById('info').innerHTML=`please wait...`;
-        let query = userdata['illness']
+        let query = document.getElementById('illness').value
 	await fetch(url,{
             method: 'POST',
             headers:{
@@ -64,15 +58,28 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 result.innerHTML=printResult(query,value);
             }
         })
+        .catch(error =>{
+            document.getElementById('result').innerHTML=`<h4 class="text-danger"> Please Try Again</h4>`;
+            document.getElementById('info').innerHTML=``;
+        })
+        
 
     }
     const statusButtons = document.querySelectorAll('input[name="healthStatus"]');
     for (const status of statusButtons) {
         status.addEventListener('change', function(e){
             if (this.checked) {
-                let inputArea = document.getElementById("userdata");
+                let inputArea = document.getElementById("formContainer");
                 inputArea.innerHTML=get_form(this.value);
                 //makePrediction(this.value);
+		document.getElementById("userdata").onsubmit = async function(e){
+	   		e.preventDefault();
+	   		let userdata = new FormData(document.getElementById('userdata'));
+            //console.log(document.getElementById('illness').value)
+            //console.log(Array.from(userdata))
+	   		makePrediction(JSON.stringify(testData));
+  		 }
+
             }
         })
         
