@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     async function makePrediction(userdata,info=spinner){
         document.getElementById('result').innerHTML=info;
-	document.getElementById('info').innerHTML=`please wait...`;
+	    document.getElementById('info').innerHTML=`please wait...`;
         let query = document.getElementById('illness').value
 	await fetch(url,{
             method: 'POST',
@@ -46,16 +46,20 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 let predictClass = result['prediction_class'];
                 let negative = parseFloat(result['probability']['negative'])
                 let positive = parseFloat(result['probability']['positive'])
-                console.log(negative,positive);
+
                 document.getElementById('result').innerHTML=``;
-		document.getElementById('info').innerHTML=`The Model Predicted ${predictClass=='1'? "High":"Low"} Likelihood of ${query}`;
+                document.getElementById('result-label').innerHTML=`${query}`
+		        document.getElementById('info').innerHTML=`Model Predicted ${predictClass=='1'? "High":"Low"} 
+                                                            Likelihood of ${query}`;
  
  
                 plotBar(['negative','positive'],[negative, positive],'result');
             }
             else{
+
                 let value = result['prediction'];
-                result.innerHTML=printResult(query,value);
+                document.getElementById('result-label').innerHTML=`${query}`
+                document.getElementById('result').innerHTML=printResult(query,value);
             }
         })
         .catch(error =>{
@@ -71,13 +75,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
             if (this.checked) {
                 let inputArea = document.getElementById("formContainer");
                 inputArea.innerHTML=get_form(this.value);
-                //makePrediction(this.value);
 		document.getElementById("userdata").onsubmit = async function(e){
 	   		e.preventDefault();
 	   		let userdata = new FormData(document.getElementById('userdata'));
-            //console.log(document.getElementById('illness').value)
-            //console.log(Array.from(userdata))
-	   		makePrediction(JSON.stringify(testData));
+            let realData = {};
+            Array.from(userdata).forEach(item=>{
+                realData[item[0]]=isNaN(item[1])? item[1]:parseFloat(item[1]);
+            });
+	   		makePrediction(JSON.stringify(realData));
   		 }
 
             }

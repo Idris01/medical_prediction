@@ -5,12 +5,23 @@ let testData={
         bmi:36.6,smoking_status:"formerly smoked"
     };
 const strokeFields = `
-                        <div class="col-sm-4">
+                    <div class="col-sm-4">
+                        <div class="col-auto">
+                        <label for="hypertension" class="col-form-label" >hypertension</label>
+                        </div>
+                        <div class="col-auto">
+                        <select name="hypertension" id="hypertension" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option value=1>Yes</option>
+                            <option value=0>No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
                         <div class="col-auto">
                         <label for="glucose" class="col-form-label" >Glucose Level</label>
                         </div>
                         <div class="col-auto">
-                        <input name="avg_glucose_level" type="number" id="glucose" class="form-control" required>
+                        <input name="avg_glucose_level" value=10 min="30" max="300" step="0.01 type="number" id="glucose" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -18,7 +29,7 @@ const strokeFields = `
                         <label for="bmi" class="col-form-label" >BMI</label>
                         </div>
                         <div class="col-auto">
-                        <input name="bmi" type="number" id="bmi" class="form-control" required>
+                        <input name="bmi" value=20 min="5" max="100" type="number" id="bmi" class="form-control" required>
                         </div>
                     </div>
 		    <input id="illness" type="hidden" name="illness" value="stroke">
@@ -36,7 +47,22 @@ const strokeFields = `
                     </div>
                     `
 const hyperFields = ` <input id="illness" type="hidden" name="illness" value="hypertension">
-
+                        <div class="col-sm-4">
+                        <div class="col-auto">
+                        <label for="glucose" class="col-form-label" >Glucose Level</label>
+                        </div>
+                        <div class="col-auto">
+                        <input name="avg_glucose_level" value=10 min="30" max="300" step="0.01 type="number" id="glucose" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="col-auto">
+                        <label for="bmi" class="col-form-label" >BMI</label>
+                        </div>
+                        <div class="col-auto">
+                        <input name="bmi" value=20 min="5" max="100" type="number" id="bmi" class="form-control" required>
+                        </div>
+                    </div>
                     <div class="col-sm-4">
                         <div class="col-auto">
                         <label for="heart_disease" class="col-form-label" >heart_disease</label>
@@ -52,18 +78,36 @@ const hyperFields = ` <input id="illness" type="hidden" name="illness" value="hy
 const bmiFields = ` <input id="illness" type="hidden" name="illness" value="bmi">
 
                     <div class="col-sm-4">
-                        <div class="col-auto">
-                        <label for="heart_disease" class="col-form-label" >heart_disease</label>
-                        </div>
-                        <div class="col-auto">
-                        <select name="heart_disease" id="heart_disease" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                            <option value=1>Yes</option>
-                            <option value=0>No</option>
-                            </select>
-                        </div>
+                    <div class="col-auto">
+                    <label for="hypertension" class="col-form-label" >hypertension</label>
                     </div>
-
-
+                    <div class="col-auto">
+                    <select name="hypertension" id="hypertension" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option value=1>Yes</option>
+                        <option value=0>No</option>
+                        </select>
+                    </div>
+                    </div>
+                    <div class="col-sm-4">
+                    <div class="col-auto">
+                    <label for="glucose" class="col-form-label" >Glucose Level</label>
+                    </div>
+                    <div class="col-auto">
+                    <input name="avg_glucose_level" value=10 min="30" max="300" step="0.01 type="number" id="glucose" class="form-control" required>
+                    </div>
+                    </div>
+    
+                    <div class="col-sm-4">
+                    <div class="col-auto">
+                    <label for="heart_disease" class="col-form-label" >heart_disease</label>
+                    </div>
+                    <div class="col-auto">
+                    <select name="heart_disease" id="heart_disease" class="form-select form-select-sm" aria-label=".form-select-sm example" required>
+                        <option value=1>Yes</option>
+                        <option value=0>No</option>
+                        </select>
+                    </div>
+                    </div>
                     `
 
 const glucoseFields = ` <input id="illness" type="hidden" name="illness" value="glucose">
@@ -86,7 +130,8 @@ export const spinner = ` <div class="spinner-border text-primary" role="status">
                         `
 
 export const printResult = function(name,value){
-    let info = `<h3>${name.toUpper()} Value: ${value}</h3>`
+    let info = `<h3 class="fw-bolder text-uppercase">${name} Value: ${value}</h3>`
+    return info
 }
 export function makeForm(otherField='stroke'){
     let addField = otherField=='stroke'? strokeFields:otherField=='hypertension'? hyperFields:otherField == "bmi"? bmiFields: glucoseFields;
@@ -99,7 +144,7 @@ export function makeForm(otherField='stroke'){
                         <label for="age" class="col-form-label" >Age</label>
                         </div>
                         <div class="col-auto">
-                        <input name="age" type="number" id="age" class="form-control" required>
+                        <input name="age" type="number" id="age" value="10" min="0.01" max="90" step="0.01" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -119,7 +164,7 @@ export function makeForm(otherField='stroke'){
                         <label for="Residence-type" class="col-form-label" >Residence Type</label>
                         </div>
                         <div class="col-auto">
-                            <select id="Residence-type" name="Residence-type" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <select id="Residence_type" name="Residence_type" class="form-select form-select-sm" aria-label=".form-select-sm example">
                             <option value="Urban">Urban</option>
                             <option value="Rural">Rural</option>
                             </select>
@@ -133,9 +178,10 @@ export function makeForm(otherField='stroke'){
                         <div class="col-auto">
                         <select id="work_type" name="work_type" class="form-select form-select-sm" aria-label=".form-select-sm example">
                             <option value="Private">Private</option>
-                            <option value="Government">Government</option>
-                            <option value="Children">Children</option>
-                            <option value="never worked">neverworked</option>
+                            <option value="Govt_job">Government</option>
+                            <option value="children">Children</option>
+                            <option value="Never_worked">neverworked</option>
+                            <option value="Self_employed">neverworked</option>
                             </select>
                         </div>
                     </div>
