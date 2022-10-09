@@ -1,7 +1,13 @@
 import {makeForm,spinner,printResult} from "/js/utility.js";
 
 document.addEventListener('DOMContentLoaded', ()=>{
-    let result = document.getElementById('result');
+   document.getElementById("userdata").onsubmit = async function(e){
+	   e.preventDefault();
+	   let userdata = new FormData(this);
+	   await alert(userdata['illness']);
+	   //makePrediction(userdata);
+   }
+ 
     
     function plotBar(xValues,yValues,divItem){
         let data = [
@@ -19,6 +25,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     function get_form(condition="stroke"){
         return makeForm(condition);
     }
+
     let url = 'https://ml-app-idris01.koyeb.app/prediction';
     let testData={
         gender:"Male",age:67.0,hypertension:0,illness:"stroke",
@@ -27,15 +34,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
         bmi:36.6,smoking_status:"formerly smoked"
     };
 
-    async function makePrediction(query){
-        result.innerHTML=spinner;
-        await fetch(url,{
+    async function makePrediction(userdata,info=spinner){
+        document.getElementById('result').innerHTML=info;
+	document.getElementById('info').innerHTML=`please wait...`;
+        let query = userdata['illness']
+	await fetch(url,{
             method: 'POST',
             headers:{
                 Accept: 'application.json',
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify(testData)
+            body: userdata
         })
         .then(response=>response.json())
         .then(result =>{
@@ -44,7 +53,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 let negative = parseFloat(result['probability']['negative'])
                 let positive = parseFloat(result['probability']['positive'])
                 console.log(negative,positive);
-                result.innerHtml="";
+                document.getElementById('result').innerHTML=``;
+		document.getElementById('info').innerHTML=`The Model Predicted ${predictClass=='1'? "High":"Low"} Likelihood of ${query}`;
+ 
+ 
                 plotBar(['negative','positive'],[negative, positive],'result');
             }
             else{
@@ -60,9 +72,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
             if (this.checked) {
                 let inputArea = document.getElementById("userdata");
                 inputArea.innerHTML=get_form(this.value);
-                makePrediction(this.value);
+                //makePrediction(this.value);
             }
         })
         
     }
+
 });
