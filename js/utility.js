@@ -187,8 +187,8 @@ export function makeForm(otherField='stroke'){
                             <option value="Private">Private</option>
                             <option value="Govt_job">Government</option>
                             <option value="children">Children</option>
-                            <option value="Never_worked">neverworked</option>
-                            <option value="Self_employed">neverworked</option>
+                            <option value="Never_worked">Never Worked</option>
+                            <option value="Self-employed">Self Employed</option>
                             </select>
                         </div>
                     </div>
