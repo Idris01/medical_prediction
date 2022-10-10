@@ -21,16 +21,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
 
     let url = 'https://ml-app-idris01.koyeb.app/prediction';
-    let testData={
-        gender:"Male",age:67.0,hypertension:0,illness:"stroke",
-        heart_disease:1,ever_married:"Yes", work_type:"Private",
-        Residence_type:"Urban",avg_glucose_level:228.69, 
-        bmi:36.6,smoking_status:"formerly smoked"
-    };
+    //let testData={
+    //    gender:"Male",age:67.0,illness:"glucose",
+    //    heart_disease:1,ever_married:"Yes", work_type:"Private",
+    //    Residence_type:"Urban", 
+    //    bmi:36.6,smoking_status:"never smoked"
+    //};
 
     async function makePrediction(userdata,info=spinner){
         document.getElementById('result').innerHTML=info;
-	    document.getElementById('info').innerHTML=`please wait...`;
+	    document.getElementById('info').innerHTML=`waiting for result...`;
         let query = document.getElementById('illness').value
 	await fetch(url,{
             method: 'POST',
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
             },
             body: userdata
         })
-        .then(response=>response.json())
+        .then(response=> response.json())
         .then(result =>{
             if (query == 'stroke' || query == 'hypertension'){
                 let predictClass = result['prediction_class'];
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 document.getElementById('result').innerHTML=``;
                 document.getElementById('result-label').innerHTML=`${query}`
 		        document.getElementById('info').innerHTML=`Model Predicted ${predictClass=='1'? "High":"Low"} 
-                                                            Likelihood of ${query}`;
+                                                            Likelihood of <span class="text-uppercase"> ${query}</span>`;
  
  
                 plotBar(['negative','positive'],[negative, positive],'result');
@@ -58,11 +58,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
             else{
 
                 let value = result['prediction'];
-                document.getElementById('result-label').innerHTML=`${query}`
+                document.getElementById('result-label').innerHTML=`${query}`;
                 document.getElementById('result').innerHTML=printResult(query,value);
+                document.getElementById('info').innerHTML=``;
             }
         })
         .catch(error =>{
+            console.log(error);
             document.getElementById('result').innerHTML=`<h4 class="text-danger"> Please Try Again</h4>`;
             document.getElementById('info').innerHTML=``;
         })

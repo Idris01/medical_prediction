@@ -110,17 +110,25 @@ const bmiFields = ` <input id="illness" type="hidden" name="illness" value="bmi"
                     </div>
                     `
 
-const glucoseFields = ` <input id="illness" type="hidden" name="illness" value="glucose">
-
+const glucoseFields = `<input id="illness" type="hidden" name="illness" value="glucose">
                     <div class="col-sm-4">
                         <div class="col-auto">
                         <label for="heart_disease" class="col-form-label" >heart_disease</label>
                         </div>
                         <div class="col-auto">
                         <select name="heart_disease" id="heart_disease" class="form-select form-select-sm" aria-label="form-select-sm example">
-                            <option value=1>Yes</option>
-                            <option value=0>No</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="col-auto">
+                        <label for="bmi" class="col-form-label" >BMI</label>
+                        </div>
+                        <div class="col-auto">
+                        <input name="bmi" value=20 min="5" max="100" type="number" id="bmi" class="form-control" required>
                         </div>
                     </div>
                     `
@@ -136,7 +144,6 @@ export const printResult = function(name,value){
 export function makeForm(otherField='stroke'){
     let addField = otherField=='stroke'? strokeFields:otherField=='hypertension'? hyperFields:otherField == "bmi"? bmiFields: glucoseFields;
     let commonFields = `</hr>
-
                <form id="userdata">
 		     <div class="row g-3 align-items-center">
                     <div class="col-sm-4">
