@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         return makeForm(condition);
     }
 
-    let url = 'https://ml-app-idris01.koyeb.app/prediction';
+    let url = 'https://data-folohunso.koyeb.app/prediction';
     //let testData={
     //    gender:"Male",age:67.0,illness:"glucose",
     //    heart_disease:1,ever_married:"Yes", work_type:"Private",
